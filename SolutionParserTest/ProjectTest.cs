@@ -7,18 +7,18 @@ namespace SolutionParserTest
     public class ProjectTest
     {
         [Fact]
-        public void Test1()
+        public void CreateNewDirectoryProject()
         {
             // Arrange.
-            var projType = ProjectType.Project;
+            var directoryName = "Test";
 
             // Act.
-            var typeGuid = projType.ToGuid();
-            var andBack = typeGuid.ToProjectType();
+            var directoryProject = Project.NewDirectoryProject(directoryName);
 
             // Assert.
-            Assert.Equal(projType, andBack);
-            Assert.Equal(typeGuid.ToProjectGuidString(), andBack.ToProjectGuidString());
+            Assert.Equal(directoryName, directoryProject.Name);
+            Assert.Equal(directoryName, directoryProject.Location);
+            Assert.Equal(ProjectType.Directory, directoryProject.Type);
         }
     }
 }
