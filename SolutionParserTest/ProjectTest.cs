@@ -43,7 +43,7 @@ namespace SolutionParserTest
                 // Assert.
                 Assert.Equal(projectName, project.Name);
                 Assert.Equal(projectLocation, project.Location);
-                Assert.Equal(ProjectType.Project, project.Type);
+                Assert.Equal(ProjectType.NetCoreProject, project.Type);
             }
         }
     }
