@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SolutionEdit
+﻿namespace SolutionEdit
 {
     public class Program
     {

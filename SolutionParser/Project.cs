@@ -4,16 +4,11 @@ namespace SolutionEdit
 {
     public class Project
     {
-        private const string Seperator = "\", \"";
+        private const int GuidSection = 2;
         private const int NameSection = 0;
         private const int PathSection = 1;
-        private const int GuidSection = 2;
+        private const string Seperator = "\", \"";
         private string[] section;
-
-        public ProjectType Type { get; }
-        public string Name { get; }
-        public string Location { get; }
-        public Guid ProjectGuid { get; }
 
         public Project(System.IO.TextReader inStream)
         {
@@ -37,7 +32,12 @@ namespace SolutionEdit
             Location = location;
             ProjectGuid = projectGuid;
         }
-            
+
+        public string Location { get; }
+        public string Name { get; }
+        public Guid ProjectGuid { get; }
+        public ProjectType Type { get; }
+
         public static Project NewDirectoryProject(string directoryName) =>
             new Project(ProjectType.Directory, directoryName, directoryName, Guid.NewGuid());
 
@@ -47,12 +47,15 @@ namespace SolutionEdit
             outStream.WriteLine("EndProject");
         }
 
-        private ProjectType GetProjectType()
+        private Guid GetProjectGuid()
         {
-            int offset = "Project(\"".Length;
-            int length = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}".Length;
-            var guid = section[NameSection].Substring(offset, length);
-            return new Guid(guid).ToProjectType();
+            var guidString = section[GuidSection].TrimEnd('"');
+            return new Guid(guidString);
+        }
+
+        private string GetProjectLocation()
+        {
+            return section[PathSection];
         }
 
         private string GetProjectName()
@@ -61,15 +64,12 @@ namespace SolutionEdit
             return section[NameSection].Substring(offset);
         }
 
-        private string GetProjectLocation()
+        private ProjectType GetProjectType()
         {
-            return section[PathSection];
-        }
-
-        private Guid GetProjectGuid()
-        {
-            var guidString = section[GuidSection].TrimEnd('"');
-            return new Guid(guidString);
+            int offset = "Project(\"".Length;
+            int length = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}".Length;
+            var guid = section[NameSection].Substring(offset, length);
+            return new Guid(guid).ToProjectType();
         }
     }
 }

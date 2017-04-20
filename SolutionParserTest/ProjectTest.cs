@@ -1,8 +1,8 @@
-using System;
-using Xunit;
 using SolutionEdit;
+using System;
 using System.IO;
 using System.Text;
+using Xunit;
 
 namespace SolutionParserTest
 {

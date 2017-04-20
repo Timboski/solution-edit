@@ -1,6 +1,5 @@
-using System;
-using Xunit;
 using SolutionEdit;
+using Xunit;
 
 namespace SolutionEditTest
 {
