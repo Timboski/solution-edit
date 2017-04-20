@@ -20,6 +20,9 @@ namespace SolutionEdit
             var projectDefinition = inStream.ReadLine();
             section = System.Text.RegularExpressions.Regex.Split(projectDefinition, Seperator);
 
+            var end = inStream.ReadLine();
+            System.Diagnostics.Debug.Assert(end == "EndProject");
+
             // Load project from text
             Type = GetProjectType();
             Name = GetProjectName();
@@ -27,7 +30,7 @@ namespace SolutionEdit
             ProjectGuid = GetProjectGuid();
         }
 
-        private Project(ProjectType type, string name, string location, Guid projectGuid)
+        public Project(ProjectType type, string name, string location, Guid projectGuid)
         {
             Type = type;
             Name = name;
